@@ -13,6 +13,10 @@ export class HeaderComponent implements OnInit {
     private router: ActivatedRoute
   ) { }
 
+  miusuario: any = {
+    nombre: localStorage.getItem('usuario'),
+    perfil: 'Admin'
+  };
   ngOnInit(): void { }
 
   goTo(menu: string) {
@@ -28,5 +32,6 @@ export class HeaderComponent implements OnInit {
       this.routerPath.navigate([`/apuestas/${userId}/${token}`])
     }
   }
+
 
 }

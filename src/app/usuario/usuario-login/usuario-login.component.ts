@@ -27,6 +27,7 @@ export class UsuarioLoginComponent implements OnInit {
 
     this.usuarioService.userLogIn(usuario, contrasena)
       .subscribe(res => {
+        localStorage.setItem('usuario', usuario);
         const decodedToken = this.helper.decodeToken(res.token);
         this.router.navigate([`/carreras/${decodedToken.sub}/${res.token}`])
       },
