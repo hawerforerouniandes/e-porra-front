@@ -13,11 +13,12 @@ export class HeaderComponent implements OnInit {
     private router: ActivatedRoute
   ) { }
 
-  miusuario: any = {
-    nombre: localStorage.getItem('usuario'),
-    perfil: 'Admin'
-  };
-  ngOnInit(): void { }
+  usuario: any;
+
+  ngOnInit(): void {
+    this.usuario = localStorage.getItem('usuario')
+    this.usuario = JSON.parse(this.usuario)
+   }
 
   goTo(menu: string) {
     const userId = parseInt(this.router.snapshot.params.userId)

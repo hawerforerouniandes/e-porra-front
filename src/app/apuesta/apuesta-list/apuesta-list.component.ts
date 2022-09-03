@@ -29,6 +29,7 @@ export class ApuestaListComponent implements OnInit {
   indiceSeleccionado: number = 0
   nombreCarrera: string
   nombreCompetidor: string
+  usuario: any
 
 
   ngOnInit() {
@@ -38,12 +39,28 @@ export class ApuestaListComponent implements OnInit {
     else {
       this.userId = parseInt(this.router.snapshot.params.userId)
       this.token = this.router.snapshot.params.userToken
-      this.getApuestas();
+      this.usuario = localStorage.getItem('usuario')
+      this.usuario = JSON.parse(this.usuario)
+
+      if(this.usuario.es_apostador){
+        this.getApuestasApostador();
+      }else{
+        this.getApuestas();
+      }
     }
   }
 
   getApuestas(): void {
     this.apuestaService.getApuestas(this.token)
+      .subscribe(apuestas => {
+        this.apuestas = apuestas
+        this.mostrarApuestas = apuestas
+        this.onSelect(this.mostrarApuestas[0], 0)
+      })
+  }
+
+  getApuestasApostador(): void {
+    this.apuestaService.getApuestasApostador(this.token, this.usuario.id)
       .subscribe(apuestas => {
         this.apuestas = apuestas
         this.mostrarApuestas = apuestas

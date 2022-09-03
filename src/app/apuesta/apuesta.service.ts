@@ -19,6 +19,13 @@ export class ApuestaService {
     return this.http.get<Apuesta[]>(`${this.backUrl}/apuestas`, { headers: headers })
   }
 
+  getApuestasApostador(token: string, apostadorId: number): Observable<Apuesta[]> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return this.http.get<Apuesta[]>(`${this.backUrl}/apuestas/${apostadorId}`, { headers: headers })
+  }
+
   crearApuesta(apuesta: Apuesta, token: string): Observable<Apuesta> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`

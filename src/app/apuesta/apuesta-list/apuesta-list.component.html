@@ -16,7 +16,7 @@
         </div>
         <div class="card-body">
 
-          <div class="input-group my-2">
+          <div class="input-group my-2" *ngIf="!usuario.es_apostador">
             <input #busqueda type="search" class="form-control" placeholder="Buscar apuestas por apostador"
               aria-label="Search" (keyup)="buscarApuesta(busqueda.value)">
           </div>
