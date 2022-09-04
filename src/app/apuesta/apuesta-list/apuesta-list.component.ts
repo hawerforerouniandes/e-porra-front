@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CarreraService } from 'src/app/carrera/carrera.service';
+import { UsuarioService } from 'src/app/usuario/usuario.service';
 import { Apuesta } from '../apuesta';
 import { ApuestaService } from '../apuesta.service';
 
@@ -18,7 +19,8 @@ export class ApuestaListComponent implements OnInit {
     private carreraService: CarreraService,
     private routerPath: Router,
     private router: ActivatedRoute,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private usuarioService: UsuarioService,
   ) { }
 
   userId: number
@@ -29,6 +31,7 @@ export class ApuestaListComponent implements OnInit {
   indiceSeleccionado: number = 0
   nombreCarrera: string
   nombreCompetidor: string
+  nombreApostador: string
   usuario: any
 
 
@@ -94,15 +97,32 @@ export class ApuestaListComponent implements OnInit {
             this.showError("Ha ocurrido un error. " + error.message)
           }
         })
+
+    this.usuarioService.getApostador(this.apuestaSeleccionada.id_apostador, this.token)
+      .subscribe(apostador => {
+        debugger
+        this.nombreApostador = apostador.nombres
+      },
+        error => {
+          if (error.statusText === "UNAUTHORIZED") {
+            this.showWarning("Su sesión ha caducado, por favor vuelva a iniciar sesión.")
+          }
+          else if (error.statusText === "UNPROCESSABLE ENTITY") {
+            this.showError("No hemos podido identificarlo, por favor vuelva a iniciar sesión.")
+          }
+          else {
+            this.showError("Ha ocurrido un error. " + error.message)
+          }
+        })
   }
 
   buscarApuesta(busqueda: string) {
     let apuestasBusqueda: Array<Apuesta> = []
-    this.apuestas.map(apuesta => {
+    /*this.apuestas.map(apuesta => {
       if (apuesta.nombre_apostador.toLocaleLowerCase().includes(busqueda.toLocaleLowerCase())) {
         apuestasBusqueda.push(apuesta)
       }
-    })
+    })*/
     this.mostrarApuestas = apuestasBusqueda
   }
 

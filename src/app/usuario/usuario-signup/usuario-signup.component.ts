@@ -26,7 +26,7 @@ export class UsuarioSignupComponent implements OnInit {
 
   ngOnInit() {
     this.usuarioForm = this.formBuilder.group({
-      usuario: ["", [Validators.required, Validators.maxLength(50)], Validators.minLength(5)],
+      usuario: ["", [Validators.required, Validators.maxLength(50)]],
       nombres: ["", [Validators.required, Validators.maxLength(100)]],
       apellidos: ["", [Validators.required, Validators.maxLength(100)]],
       password: ["", [Validators.required, Validators.maxLength(50), Validators.minLength(4)]],

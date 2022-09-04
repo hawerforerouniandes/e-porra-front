@@ -13,6 +13,7 @@ export class ApuestaDetailComponent implements OnInit {
 
   @Input() carrera: string;
   @Input() competidor: string;
+  @Input() apostador: string;
   @Input() inputApuesta: Apuesta;
 
   userId: number;

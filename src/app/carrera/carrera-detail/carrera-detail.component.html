@@ -50,7 +50,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let apuesta of carrera?.apuestas">
-            <td>{{apuesta.nombre_apostador}}</td>
+            <td>{{ apuesta.id_apostador }}</td>
             <td class="text-center">{{ getCompetidor(apuesta.id_competidor) }}</td>
             <td class="text-center">{{apuesta.valor_apostado | number:'1.2-2'}}</td>
           </tr>
