@@ -15,6 +15,38 @@
         </div>
 
         <form [formGroup]="usuarioForm" (ngSubmit)="registrarUsuario()">
+          <div class="form-group">
+            <div class="mb-3 row">
+              <label for="usuario" class="col-lg-3 col-form-label">Nombres</label>
+              <div class="col-lg-9  ">
+                <input formControlName="nombres" type="text" class="form-control" placeholder="Nombres">
+              </div>
+            </div>
+            <div class="alert alert-danger my-3"
+              *ngIf="usuarioForm.get('nombres')?.hasError('required') && usuarioForm.get('nombres')?.touched">
+              Debe ingresar nombres para registrarse
+            </div>
+            <div class="alert alert-danger my-3" *ngIf="usuarioForm.get('nombres')?.hasError('maxlength')">
+              El campo nombres no debe exceder los 100 carácteres
+            </div>
+
+          </div>
+          <div class="form-group">
+            <div class="mb-3 row">
+              <label for="usuario" class="col-lg-3 col-form-label">Apellidos</label>
+              <div class="col-lg-9  ">
+                <input formControlName="apellidos" type="text" class="form-control" placeholder="Apellidos">
+              </div>
+            </div>
+            <div class="alert alert-danger my-3"
+              *ngIf="usuarioForm.get('apellidos')?.hasError('required') && usuarioForm.get('apellidos')?.touched">
+              Debe ingresar apellidos para registrarse
+            </div>
+            <div class="alert alert-danger my-3" *ngIf="usuarioForm.get('apellidos')?.hasError('maxlength')">
+              El campo apellidos no debe exceder los 100 carácteres
+            </div>
+
+          </div>
 
           <div class="form-group">
             <div class="mb-3 row">
