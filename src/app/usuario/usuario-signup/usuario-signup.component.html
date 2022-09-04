@@ -62,6 +62,9 @@
             <div class="alert alert-danger my-3" *ngIf="usuarioForm.get('usuario')?.hasError('maxlength')">
               El usuario no debe exceder los 50 carácteres
             </div>
+            <div class="alert alert-danger my-3" *ngIf="usuarioForm.get('password')?.hasError('minlength')">
+              el usuario debe tener más de 5 carácteres
+            </div>
 
           </div>
 
