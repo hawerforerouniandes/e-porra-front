@@ -66,21 +66,19 @@
                 <label for="nombre_apostador">Apostador </label>
               </div>
               <div class="col-10">
-                <input type="text" class="form-control" formControlName="nombre_apostador"
-                  placeholder="Nombre del apostador">
+                <select formControlName="id_apostador" class="form-control">
+                  <option value="">Selecciona un apostador...</option>
+                  <option *ngFor="let item of apostadores" value="{{ item.id }}">
+                    {{ item.nombres }}
+                  </option>
+                </select>
               </div>
             </div>
             <div class="row justify-content-center">
               <div class="col-8">
                 <div class="alert alert-danger my-3"
-                  *ngIf="apuestaForm.get('nombre_apostador')?.hasError('required') && apuestaForm.get('nombre_apostador')?.touched">
-                  Debe ingresar el nombre del apostador
-                </div>
-                <div class="alert alert-danger my-3" *ngIf="apuestaForm.get('nombre_apostador')?.hasError('minlength')">
-                  El nombre del apostador debe tener por lo menos un carácter
-                </div>
-                <div class="alert alert-danger my-3" *ngIf="apuestaForm.get('nombre_apostador')?.hasError('maxlength')">
-                  El nombre del apostador no debe exceder los 128 carácteres
+                  *ngIf="apuestaForm.get('id_apostador')?.hasError('required') && apuestaForm.get('id_apostador')?.touched">
+                  Debe seleccionar un apostador
                 </div>
               </div>
             </div>

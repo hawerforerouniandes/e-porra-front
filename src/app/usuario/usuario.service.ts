@@ -32,4 +32,12 @@ export class UsuarioService {
       })
       return this.http.get<any>(`${this.backUrl}/apostador/${idApostador}`, { headers: headers })
     }
+
+    getApostadores(token: string): Observable<any> {
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      })
+      return this.http.get<any>(`${this.backUrl}/apostadores`, { headers: headers })
+    }
+
 }
