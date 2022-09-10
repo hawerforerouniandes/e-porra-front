@@ -8,6 +8,7 @@ import { CarreraEditComponent } from './carrera/carrera-edit/carrera-edit.compon
 import { CarreraFinishComponent } from './carrera/carrera-finish/carrera-finish.component';
 import { CarreraListComponent } from './carrera/carrera-list/carrera-list.component';
 import { CarreraReportComponent } from './carrera/carrera-report/carrera-report.component';
+import { CuentaDetailComponent } from './cuenta/cuenta-detail/cuenta-detail.component';
 import { UsuarioLoginComponent } from './usuario/usuario-login/usuario-login.component';
 import { UsuarioSignupComponent } from './usuario/usuario-signup/usuario-signup.component';
 
@@ -58,7 +59,11 @@ const routes: Routes = [
   {
     path: 'apuestas/editar/:apuestaId/:userId/:userToken',
     component: ApuestaEditComponent
-  }
+  },
+  {
+    path: 'cuenta/:userId/:userToken',
+    component: CuentaDetailComponent
+  },
 ];
 
 @NgModule({

@@ -29,10 +29,12 @@ export class HeaderComponent implements OnInit {
     else if (menu === "carrera") {
       this.routerPath.navigate([`/carreras/${userId}/${token}`])
     }
-    else {
+    else if (menu === "apuesta"){
       this.routerPath.navigate([`/apuestas/${userId}/${token}`])
     }
+    else if (menu === "cuenta"){
+      this.routerPath.navigate([`/cuenta/${userId}/${token}`])
+    }
   }
-
 
 }

@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ApuestaModule } from './apuesta/apuesta.module';
 import { CarreraModule } from './carrera/carrera.module';
+import { CuentaModule } from './cuenta/cuenta.module';
 import { UsuarioModule } from './usuario/usuario.module';
 
 @NgModule({
@@ -23,6 +24,7 @@ import { UsuarioModule } from './usuario/usuario.module';
     CarreraModule,
     ApuestaModule,
     AppHeaderModule,
+    CuentaModule,
     ToastrModule.forRoot({
       timeOut: 7000,
       positionClass: 'toast-bottom-right',

@@ -100,7 +100,6 @@ export class ApuestaListComponent implements OnInit {
 
     this.usuarioService.getApostador(this.apuestaSeleccionada.id_apostador, this.token)
       .subscribe(apostador => {
-        debugger
         this.nombreApostador = apostador.nombres
       },
         error => {
