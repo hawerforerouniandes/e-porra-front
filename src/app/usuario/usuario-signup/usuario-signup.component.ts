@@ -44,7 +44,12 @@ export class UsuarioSignupComponent implements OnInit {
       .subscribe(res => {
         localStorage.setItem('usuario', JSON.stringify(res.usuario));
         const decodedToken = this.helper.decodeToken(res.token);
-        this.router.navigate([`/carreras/${decodedToken.sub}/${res.token}`])
+        if(res.usuario.es_apostador){
+          this.router.navigate([`/apuestas/${decodedToken.sub}/${res.token}`])
+        }
+        else{
+          this.router.navigate([`/carreras/${decodedToken.sub}/${res.token}`])
+        }
 
         this.showSuccess()
       },
