@@ -56,6 +56,14 @@ export class CuentaDetailComponent implements OnInit {
       })
   }
 
+  goDepositar() {
+    const userId = parseInt(this.router.snapshot.params.userId)
+    const token = this.router.snapshot.params.userToken
+
+    this.routerPath.navigate([`/cuenta/crear/${userId}/${token}`])
+
+  }
+
   showWarning(warning: string) {
     this.toastr.warning(warning, "Error de autenticación")
   }
