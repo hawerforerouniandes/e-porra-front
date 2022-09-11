@@ -40,9 +40,9 @@ export class CuentaCreateComponent implements OnInit {
 
 
   depositarDinero(newCuenta: Cuenta) {
-    newCuenta.tipo = "Deposito";
+    newCuenta.tipo = true;
     let date = new Date();
-    newCuenta.fecha_registro = date.toString();
+    newCuenta.fecha_registro = date;
     this.cuentaService.depositarDinero(this.userId, this.token, newCuenta)
       .subscribe(cuenta => {
         this.showSuccess(cuenta)
