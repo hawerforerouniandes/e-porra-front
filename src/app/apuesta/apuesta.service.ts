@@ -8,7 +8,7 @@ import { Apuesta } from './apuesta';
 })
 export class ApuestaService {
 
-  private backUrl: string = "http://127.0.0.1:5000"
+  private backUrl: string = "https://e-porra-backend-grupo38.herokuapp.com"
 
   constructor(private http: HttpClient) { }
 
