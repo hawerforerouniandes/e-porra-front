@@ -3,9 +3,9 @@
   <div class="row">
     <div class="col-12 text-center mb-2">
       <label class="fs-4 fw-bold">Apuesta {{inputApuesta?.id}}</label>
-      <button *ngIf="inputApuesta" type="button" class="btn btn-outline-success ms-3 me-2" (click)="goToEdit()"
-        title="Editar apuesta"><i class="bi bi-pencil-square"></i></button>
-      <button *ngIf="inputApuesta" type="button" class="btn btn-outline-danger me-1" (click)="eliminarApuesta()"
+      <button *ngIf="inputApuesta && !usuario.es_apostador" type="button" class="btn btn-outline-success ms-3 me-2" (click)="goToEdit()"
+        title="Editar apuesta" ><i class="bi bi-pencil-square"></i></button>
+      <button *ngIf="inputApuesta && !usuario.es_apostador" type="button" class="btn btn-outline-danger me-1" (click)="eliminarApuesta()"
         title="Eliminar apuesta"><i class="bi bi-trash-fill"></i></button>
     </div>
   </div>

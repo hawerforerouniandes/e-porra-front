@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { UsuarioService } from 'src/app/usuario/usuario.service';
 import { Apuesta } from '../apuesta';
 import { ApuestaService } from '../apuesta.service';
 
@@ -18,6 +19,7 @@ export class ApuestaDetailComponent implements OnInit {
 
   userId: number;
   token: string;
+  usuario: any
 
   constructor(
     private apuestaService: ApuestaService,
@@ -29,6 +31,8 @@ export class ApuestaDetailComponent implements OnInit {
   ngOnInit() {
     this.userId = parseInt(this.router.snapshot.params.userId)
     this.token = this.router.snapshot.params.userToken
+    this.usuario = localStorage.getItem('usuario')
+    this.usuario = JSON.parse(this.usuario)
   }
 
   eliminarApuesta() {

@@ -2,14 +2,14 @@ export class Cuenta {
   id: number;
   tipo: boolean;
   valor: number;
-  numero_tarjeta: number;
+  numero_tarjeta: string;
   fecha_registro: Date;
 
   constructor(
     id: number,
     tipo: boolean,
     valor: number,
-    numero_tarjeta: number,
+    numero_tarjeta: string,
     fecha_registro: Date
   ) {
       this.id = id,

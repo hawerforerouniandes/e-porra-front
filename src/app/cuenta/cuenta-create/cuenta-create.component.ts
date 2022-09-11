@@ -33,7 +33,7 @@ export class CuentaCreateComponent implements OnInit {
       this.token = this.router.snapshot.params.userToken
       this.cuentaForm = this.formBuilder.group({
         valor: [0, [Validators.required]],
-        numero_tarjeta: [0, [Validators.required]]
+        numero_tarjeta: ["", [Validators.required, Validators.minLength(16), Validators.maxLength(16)]]
       })
     }
   }

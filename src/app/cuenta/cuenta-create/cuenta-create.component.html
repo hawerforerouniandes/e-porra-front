@@ -37,18 +37,25 @@
                 <label for="numero_tarjeta">Numero de tarjeta</label>
               </div>
               <div class="col-10">
-                <input type="number" class="form-control" formControlName="numero_tarjeta"
-                  placeholder="Valor de la apuesta">
+                <input type="text" class="form-control" formControlName="numero_tarjeta"
+                  placeholder="Numero de la tarjeta">
               </div>
             </div>
             <div class="row justify-content-center">
               <div class="col-8">
                 <div class="alert alert-danger my-3"
                   *ngIf="cuentaForm.get('numero_tarjeta')?.hasError('required') && cuentaForm.get('numero_tarjeta')?.touched">
-                  Debe ingresar el valor de la apuesta
+                  Debe ingresar el numero de la tarjeta
                 </div>
               </div>
+              <div class="alert alert-danger my-3" *ngIf="cuentaForm.get('numero_tarjeta')?.hasError('minlength')">
+                El numero de tarjeta tener 16 carácteres
+              </div>
+              <div class="alert alert-danger my-3" *ngIf="cuentaForm.get('numero_tarjeta')?.hasError('maxlength')">
+                El numero de tarjeta tener 16 carácteres
+              </div>
             </div>
+
           </div>
 
           <div class="row mt-4">
