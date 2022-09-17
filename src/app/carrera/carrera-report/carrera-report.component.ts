@@ -32,7 +32,7 @@ export class CarreraReportComponent implements OnInit {
       this.token = this.router.snapshot.params.userToken
       this.carreraService.verReporteCarrera(this.token, parseInt(this.router.snapshot.params.carreraId))
         .subscribe(reporteCarrera => {
-          this.carrera = new Carrera(reporteCarrera.carrera.id, reporteCarrera.carrera.nombre_carrera, reporteCarrera.abierta, this.userId, [], [])
+          this.carrera = new Carrera(reporteCarrera.carrera.id, reporteCarrera.carrera.nombre_carrera, reporteCarrera.abierta, this.userId, false, [], [])
 
           if (reporteCarrera.carrera.competidores.length > 0) {
             for (let competidor of reporteCarrera.carrera.competidores) {

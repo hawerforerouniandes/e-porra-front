@@ -16,7 +16,7 @@ export class CarreraCreateComponent implements OnInit {
   userId: number
   token: string
   carreraForm: FormGroup
-
+  marcador: boolean = false
   constructor(
     private carreraService: CarreraService,
     private formBuilder: FormBuilder,
@@ -35,6 +35,7 @@ export class CarreraCreateComponent implements OnInit {
       this.token = this.router.snapshot.params.userToken
       this.carreraForm = this.formBuilder.group({
         nombre: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(128)]],
+        marcador: [false, [Validators.required]],
         competidores: new FormArray([])
       });
       this.competidorformArray.push(this.createCompetidorForm());
@@ -51,7 +52,7 @@ export class CarreraCreateComponent implements OnInit {
 
   private createCompetidorForm(item?: any): FormGroup {
     return this.formBuilder.group({
-      competidor: [item == null ? '' : item.competidor, [Validators.required, Validators.minLength(1), Validators.maxLength(128)]],
+      nombre_competidor: [item == null ? '' : item.competidor, [Validators.required, Validators.minLength(1), Validators.maxLength(128)]],
       probabilidad: [item == null ? '' : item.probabilidad, [Validators.required, Validators.min(0), Validators.max(1)]]
     });
   }
@@ -70,6 +71,12 @@ export class CarreraCreateComponent implements OnInit {
   }
 
   createCarrera(newCarrera: Carrera) {
+    if(this.marcador){
+      newCarrera.competidores[0].nombre_competidor = "Local";
+      newCarrera.competidores[1].nombre_competidor = "Empate";
+      newCarrera.competidores[2].nombre_competidor = "Visitante";
+    }
+    console.log(newCarrera)
     this.carreraService.crearCarrera(this.userId, this.token, newCarrera)
       .subscribe(carrera => {
         this.showSuccess(carrera)
@@ -87,6 +94,38 @@ export class CarreraCreateComponent implements OnInit {
             this.showError("Ha ocurrido un error. " + error.message)
           }
         })
+  }
+
+  changeCheckbox() {
+    if(this.carreraForm.value.marcador){
+      this.marcador = true
+      this.onRemoveCompetidor(0)
+
+      var local = this.formBuilder.group({
+        nombre_competidor: [{value:'Local', disabled: true}, [Validators.required, Validators.minLength(1), Validators.maxLength(128)],],
+        probabilidad: ['', [Validators.required, Validators.min(0), Validators.max(1)]]
+      });
+      this.competidorformArray.push(local);
+
+      var empate = this.formBuilder.group({
+        nombre_competidor: [{value:'Empate', disabled: true}, [Validators.required, Validators.minLength(1), Validators.maxLength(128)],],
+        probabilidad: ['', [Validators.required, Validators.min(0), Validators.max(1)]]
+      });
+      this.competidorformArray.push(empate);
+
+      var visitante = this.formBuilder.group({
+        nombre_competidor: [{value:'Visitante', disabled: true}, [Validators.required, Validators.minLength(1), Validators.maxLength(128)],],
+        probabilidad: ['', [Validators.required, Validators.min(0), Validators.max(1)]]
+      });
+      this.competidorformArray.push(visitante);
+
+    }
+    else{
+      this.onRemoveCompetidor(0)
+      this.onRemoveCompetidor(0)
+      this.onRemoveCompetidor(0)
+      this.onAddCompetidor()
+    }
   }
 
   showError(error: string) {
