@@ -77,15 +77,15 @@
                     <div class="row justify-content-center">
                       <div class="col-12">
                         <div class="alert alert-danger my-3"
-                          *ngIf="competidoresForm.get('competidor')?.hasError('required') && competidoresForm.get('competidor')?.touched">
+                          *ngIf="competidoresForm.get('nombre_competidor')?.hasError('required') && competidoresForm.get('nombre_competidor')?.touched">
                           Debe ingresar un nombre para el competidor
                         </div>
                         <div class="alert alert-danger my-3"
-                          *ngIf="competidoresForm.get('competidor')?.hasError('minlength')">
+                          *ngIf="competidoresForm.get('nombre_competidor')?.hasError('minlength')">
                           El nombre debe tener por lo menos un carácter
                         </div>
                         <div class="alert alert-danger my-3"
-                          *ngIf="competidoresForm.get('competidor')?.hasError('maxlength')">
+                          *ngIf="competidoresForm.get('nombre_competidor')?.hasError('maxlength')">
                           El nombre no debe exceder los 128 carácteres
                         </div>
                         <div class="alert alert-danger my-3"

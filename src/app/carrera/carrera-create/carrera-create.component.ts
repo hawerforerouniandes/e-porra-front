@@ -76,7 +76,6 @@ export class CarreraCreateComponent implements OnInit {
       newCarrera.competidores[1].nombre_competidor = "Empate";
       newCarrera.competidores[2].nombre_competidor = "Visitante";
     }
-    console.log(newCarrera)
     this.carreraService.crearCarrera(this.userId, this.token, newCarrera)
       .subscribe(carrera => {
         this.showSuccess(carrera)
@@ -99,7 +98,10 @@ export class CarreraCreateComponent implements OnInit {
   changeCheckbox() {
     if(this.carreraForm.value.marcador){
       this.marcador = true
-      this.onRemoveCompetidor(0)
+      var len = this.competidorformArray.length
+      for (let index = 0; index < len; index++) {
+        this.onRemoveCompetidor(0)
+      }
 
       var local = this.formBuilder.group({
         nombre_competidor: [{value:'Local', disabled: true}, [Validators.required, Validators.minLength(1), Validators.maxLength(128)],],
@@ -121,9 +123,10 @@ export class CarreraCreateComponent implements OnInit {
 
     }
     else{
-      this.onRemoveCompetidor(0)
-      this.onRemoveCompetidor(0)
-      this.onRemoveCompetidor(0)
+      var len = this.competidorformArray.length
+      for (let index = 0; index < len; index++) {
+        this.onRemoveCompetidor(0)
+      }
       this.onAddCompetidor()
     }
   }

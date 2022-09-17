@@ -16,6 +16,7 @@ export class CarreraEditComponent implements OnInit {
   token: string;
   carreraId: number;
   carreraForm!: FormGroup;
+  marcador: boolean;
 
   constructor(
 
@@ -35,14 +36,25 @@ export class CarreraEditComponent implements OnInit {
       this.carreraService.getCarrera(parseInt(this.router.snapshot.params.carreraId), this.token)
         .subscribe(carrera => {
           this.carreraId = carrera.id
+          this.marcador = carrera.marcador
           this.carreraForm = this.formBuilder.group({
             nombre: [carrera.nombre_carrera, [Validators.required, Validators.minLength(1), Validators.maxLength(128)]],
+            marcador: [carrera.marcador, [Validators.required]],
             competidores: new FormArray([])
           })
 
           if (carrera.competidores.length > 0) {
             carrera.competidores.forEach((item, index) => {
-              this.competidorformArray.push(this.createCompetidorForm(item));
+              if(carrera.marcador){
+                var item_marcador = this.formBuilder.group({
+                  id: [item.id],
+                  nombre_competidor: [{value:item.nombre_competidor, disabled: true}, [Validators.required, Validators.minLength(1), Validators.maxLength(128)],],
+                  probabilidad: [item.probabilidad, [Validators.required, Validators.min(0), Validators.max(1)]]
+                });
+                this.competidorformArray.push(item_marcador);
+              }else{
+                this.competidorformArray.push(this.createCompetidorForm(item));
+              }
             });
           }
         })
@@ -60,7 +72,7 @@ export class CarreraEditComponent implements OnInit {
   private createCompetidorForm(item?: any): FormGroup {
     return this.formBuilder.group({
       id: [item == null ? '' : item.id],
-      competidor: [item == null ? '' : item.nombre_competidor, [Validators.required, Validators.minLength(1), Validators.maxLength(128)]],
+      nombre_competidor: [item == null ? '' : item.nombre_competidor, [Validators.required, Validators.minLength(1), Validators.maxLength(128)]],
       probabilidad: [item == null ? '' : Number(item.probabilidad).toFixed(2), [Validators.required, Validators.min(0), Validators.max(1)]]
     });
   }
@@ -79,6 +91,11 @@ export class CarreraEditComponent implements OnInit {
   }
 
   editarCarrera(newCarrera: Carrera) {
+    if(this.marcador){
+      newCarrera.competidores[0].nombre_competidor = "Local";
+      newCarrera.competidores[1].nombre_competidor = "Empate";
+      newCarrera.competidores[2].nombre_competidor = "Visitante";
+    }
     this.carreraService.editarCarrera(this.token, this.carreraId, newCarrera)
       .subscribe(carrera => {
         this.showSuccess(carrera)
@@ -98,6 +115,41 @@ export class CarreraEditComponent implements OnInit {
         })
   }
 
+  changeCheckbox() {
+    if(this.carreraForm.value.marcador){
+      this.marcador = true
+      var len = this.competidorformArray.length
+      for (let index = 0; index < len; index++) {
+        this.onRemoveCompetidor(0)
+      }
+
+      var local = this.formBuilder.group({
+        nombre_competidor: [{value:'Local', disabled: true}, [Validators.required, Validators.minLength(1), Validators.maxLength(128)],],
+        probabilidad: ['', [Validators.required, Validators.min(0), Validators.max(1)]]
+      });
+      this.competidorformArray.push(local);
+
+      var empate = this.formBuilder.group({
+        nombre_competidor: [{value:'Empate', disabled: true}, [Validators.required, Validators.minLength(1), Validators.maxLength(128)],],
+        probabilidad: ['', [Validators.required, Validators.min(0), Validators.max(1)]]
+      });
+      this.competidorformArray.push(empate);
+
+      var visitante = this.formBuilder.group({
+        nombre_competidor: [{value:'Visitante', disabled: true}, [Validators.required, Validators.minLength(1), Validators.maxLength(128)],],
+        probabilidad: ['', [Validators.required, Validators.min(0), Validators.max(1)]]
+      });
+      this.competidorformArray.push(visitante);
+
+    }
+    else{
+      var len = this.competidorformArray.length
+      for (let index = 0; index < len; index++) {
+        this.onRemoveCompetidor(0)
+      }
+      this.onAddCompetidor()
+    }
+  }
 
   showError(error: string) {
     this.toastr.error(error, "Error")
