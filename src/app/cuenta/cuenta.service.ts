@@ -2,13 +2,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Cuenta } from './cuenta';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CuentaService {
 
-  private backUrl: string = "https://e-porra-backend-grupo38.herokuapp.com"
+  private backUrl: string = environment.baseUrl
 
   constructor(private http: HttpClient) { }
 

@@ -4,10 +4,11 @@ import { CuentaDetailComponent } from './cuenta-detail/cuenta-detail.component';
 import { AppHeaderModule } from '../app-header/app-header.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CuentaCreateComponent } from './cuenta-create/cuenta-create.component';
+import { CuentaDeleteComponent } from './cuenta-delete/cuenta-delete.component';
 import { CuentaConsultaComponent } from './cuenta-consulta/cuenta-consulta.component';
 
 @NgModule({
-  declarations: [CuentaDetailComponent, CuentaCreateComponent,CuentaConsultaComponent],
+  declarations: [CuentaDetailComponent, CuentaCreateComponent, CuentaDeleteComponent,CuentaConsultaComponent],
   imports: [
     CommonModule, AppHeaderModule, ReactiveFormsModule
   ],

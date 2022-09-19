@@ -2,13 +2,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Apuesta } from './apuesta';
+import { environment } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApuestaService {
 
-  private backUrl: string = "https://e-porra-backend-grupo38.herokuapp.com"
+  private backUrl: string = environment.baseUrl
 
   constructor(private http: HttpClient) { }
 

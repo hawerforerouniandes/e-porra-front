@@ -9,6 +9,7 @@ import { CarreraFinishComponent } from './carrera/carrera-finish/carrera-finish.
 import { CarreraListComponent } from './carrera/carrera-list/carrera-list.component';
 import { CarreraReportComponent } from './carrera/carrera-report/carrera-report.component';
 import { CuentaCreateComponent } from './cuenta/cuenta-create/cuenta-create.component';
+import { CuentaDeleteComponent } from './cuenta/cuenta-delete/cuenta-delete.component';
 import { CuentaDetailComponent } from './cuenta/cuenta-detail/cuenta-detail.component';
 import { UsuarioLoginComponent } from './usuario/usuario-login/usuario-login.component';
 import { UsuarioSignupComponent } from './usuario/usuario-signup/usuario-signup.component';
@@ -73,6 +74,10 @@ const routes: Routes = [
   {
     path: 'cuenta/consultar/:userId/:userToken',
     component: CuentaConsultaComponent
+  },
+  {
+    path: 'cuenta/retirar/:userId/:userToken',
+    component: CuentaDeleteComponent
   },
 ];
 

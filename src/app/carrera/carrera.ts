@@ -4,6 +4,7 @@ export class Carrera {
     nombre_carrera: string;
     abierta: boolean;
     usuario: number;
+    marcador: boolean;
     competidores: Array<Competidor>;
     apuestas: Array<Apuesta>
 
@@ -12,6 +13,7 @@ export class Carrera {
         nombre_carrera: string,
         abierta: boolean,
         usuario: number,
+        marcador: boolean,
         competidores: Array<Competidor>,
         apuestas: Array<Apuesta>
     ) {
@@ -19,6 +21,7 @@ export class Carrera {
             this.nombre_carrera = nombre_carrera,
             this.abierta = abierta,
             this.usuario = usuario,
+            this.marcador = marcador;
             this.competidores = competidores,
             this.apuestas = apuestas
     }
