@@ -7,7 +7,7 @@
           <div class="card-header">
             <div class="row">
               <div class="col-12 text-center">
-                <p class="mb-2 fs-3 fw-bold">Cuenta</p>
+                <p class="mb-2 fs-3 fw-bold">Movimientos</p>
               </div>
             </div>
           </div>
@@ -17,14 +17,32 @@
                 <b><label for="nombre">Saldo: </label></b>
               </div>
               <div class="col-10">
-                <span>$ {{saldo | number }}</span>
+                <span>$ {{saldo}}</span>
               </div>
             </div>
           </div>
+
+          <div class="container-fluid">
+            <div class="col-6">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th class="h5">Fecha</th>
+                    <th class="h5">Descripcion</th>
+                    <th class="h5">Valor</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+
+
           <div class="card-footer">
-            <button type="button" class="btn btn-primary" (click)="goDepositar()">Depositar</button>&nbsp;
-            <button type="button" class="btn btn-primary">Retirar</button>&nbsp;
-            <button type="button" class="btn btn-primary" (click)="verMovimientos()">Movimientos</button>
+            <button class="btn btn-danger" (click)="cerrar()">Cerrar</button>
+
           </div>
         </div>
       </div>
