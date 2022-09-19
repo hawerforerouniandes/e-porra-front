@@ -13,6 +13,7 @@ import { CuentaDeleteComponent } from './cuenta/cuenta-delete/cuenta-delete.comp
 import { CuentaDetailComponent } from './cuenta/cuenta-detail/cuenta-detail.component';
 import { UsuarioLoginComponent } from './usuario/usuario-login/usuario-login.component';
 import { UsuarioSignupComponent } from './usuario/usuario-signup/usuario-signup.component';
+import { CuentaConsultaComponent } from './cuenta/cuenta-consulta/cuenta-consulta.component';
 
 const routes: Routes = [
   {
@@ -69,6 +70,10 @@ const routes: Routes = [
   {
     path: 'cuenta/crear/:userId/:userToken',
     component: CuentaCreateComponent
+  },
+  {
+    path: 'cuenta/consultar/:userId/:userToken',
+    component: CuentaConsultaComponent
   },
   {
     path: 'cuenta/retirar/:userId/:userToken',

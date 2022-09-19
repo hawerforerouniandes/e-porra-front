@@ -5,12 +5,13 @@ import { AppHeaderModule } from '../app-header/app-header.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CuentaCreateComponent } from './cuenta-create/cuenta-create.component';
 import { CuentaDeleteComponent } from './cuenta-delete/cuenta-delete.component';
+import { CuentaConsultaComponent } from './cuenta-consulta/cuenta-consulta.component';
 
 @NgModule({
-  declarations: [CuentaDetailComponent, CuentaCreateComponent, CuentaDeleteComponent],
+  declarations: [CuentaDetailComponent, CuentaCreateComponent, CuentaDeleteComponent,CuentaConsultaComponent],
   imports: [
     CommonModule, AppHeaderModule, ReactiveFormsModule
   ],
-  exports: [CuentaDetailComponent, CuentaCreateComponent]
+  exports: [CuentaDetailComponent, CuentaCreateComponent, CuentaConsultaComponent]
 })
 export class CuentaModule { }
