@@ -22,4 +22,15 @@ export class CuentaService {
   }
 
 
+  getMovimientos(idUsuario: number, token: string): Observable<Cuenta[]> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return this.http.get<Cuenta[]>(`${this.backUrl}/consulta/${idUsuario}`, { headers: headers })
+  }
+
+
+
+
+
 }

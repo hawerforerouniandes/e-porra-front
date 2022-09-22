@@ -17,7 +17,7 @@
                 <b><label for="nombre">Saldo: </label></b>
               </div>
               <div class="col-10">
-                <span>$ {{saldo}}</span>
+                <span>$ {{saldo | number }}</span>
               </div>
             </div>
           </div>
@@ -33,7 +33,16 @@
                   </tr>
                 </thead>
                 <tbody>
+                  <tr *ngFor="let cta of mostrarCuentas; index as i" (click)="onSelect(carrera, i)"
+                    [ngClass]="{'selected': i === indiceSeleccionado}">
+                    <td>{{ pipe.transform(cta.fecha_registro, 'dd/MM/yyyy')}}
+                    <td *ngIf="cta.tipo else elseBlock">Deposito</td>
+                    <ng-template #elseBlock><td>Retiro</td></ng-template>
+                    <td>{{cta.valor}}</td>
+
+                  </tr>
                 </tbody>
+
               </table>
             </div>
           </div>

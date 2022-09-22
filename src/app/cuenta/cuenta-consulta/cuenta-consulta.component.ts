@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Cuenta } from '../cuenta';
 import { ToastrService } from 'ngx-toastr';
 import { CuentaService } from '../cuenta.service';
+import { UsuarioService } from 'src/app/usuario/usuario.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-cuenta-consulta',
@@ -13,11 +15,16 @@ import { CuentaService } from '../cuenta.service';
 export class CuentaConsultaComponent implements OnInit {
   userId: number
   token: string
-  saldo: number
+  saldo: any
+  cuentas: Array<Cuenta>
+  mostrarCuentas: Array<Cuenta>
+  pipe = new DatePipe('en-US');
   constructor(private router: ActivatedRoute,
     private routerPath: Router,
     private toastr: ToastrService,
-    private cuentaService: CuentaService,) {
+    private cuentaService: CuentaService,
+    private usuarioService: UsuarioService,
+    ) {
    }
 
   ngOnInit() {
@@ -27,8 +34,49 @@ export class CuentaConsultaComponent implements OnInit {
     else {
       this.userId = parseInt(this.router.snapshot.params.userId)
       this.token = this.router.snapshot.params.userToken
+      this.getApostador()
+      this.getMovimientos()
 
     }
+  }
+
+  getMovimientos(): void {
+    this.cuentaService.getMovimientos(this.userId, this.token)
+      .subscribe(datos => {
+        this.cuentas = datos
+        this.mostrarCuentas = datos
+      },
+        error => {
+          console.log(error)
+          if (error.statusText === "UNAUTHORIZED") {
+            this.showWarning("Su sesión ha caducado, por favor vuelva a iniciar sesión.")
+          }
+          else if (error.statusText === "UNPROCESSABLE ENTITY") {
+            this.showError("No hemos podido identificarlo, por favor vuelva a iniciar sesión.")
+          }
+          else {
+            this.showError("Ha ocurrido un error. " + error.message)
+          }
+        })
+
+  }
+
+  getApostador() {
+    this.usuarioService.getApostador(this.userId, this.token)
+    .subscribe(apostador => {
+      this.saldo = apostador.saldo
+    },
+      error => {
+        if (error.statusText === "UNAUTHORIZED") {
+          this.showWarning("Su sesión ha caducado, por favor vuelva a iniciar sesión.")
+        }
+        else if (error.statusText === "UNPROCESSABLE ENTITY") {
+          this.showError("No hemos podido identificarlo, por favor vuelva a iniciar sesión.")
+        }
+        else {
+          this.showError("Ha ocurrido un error. " + error.message)
+        }
+      })
   }
 
   cerrar() {
