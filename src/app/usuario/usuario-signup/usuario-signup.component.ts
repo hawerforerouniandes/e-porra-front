@@ -27,19 +27,18 @@ export class UsuarioSignupComponent implements OnInit {
   ngOnInit() {
     this.usuarioForm = this.formBuilder.group({
       usuario: ["", [Validators.required, Validators.maxLength(50)]],
+      numero_tarjeta: ["", [Validators.required, Validators.maxLength(50)]],
+      email: ["", [Validators.required, Validators.maxLength(50), Validators.email]],
       nombres: ["", [Validators.required, Validators.maxLength(100)]],
       apellidos: ["", [Validators.required, Validators.maxLength(100)]],
-      password: ["", [Validators.required, Validators.maxLength(50), Validators.minLength(4)]],
+      contrasena: ["", [Validators.required, Validators.maxLength(50), Validators.minLength(4)]],
       confirmPassword: ["", [Validators.required, Validators.maxLength(50), Validators.minLength(4)]]
     })
   }
 
   registrarUsuario() {
     this.usuarioService.userSignUp(
-      this.usuarioForm.get('usuario')?.value,
-      this.usuarioForm.get('password')?.value,
-      this.usuarioForm.get('nombres')?.value,
-      this.usuarioForm.get('apellidos')?.value
+        this.usuarioForm.value
       )
       .subscribe(res => {
         localStorage.setItem('usuario', JSON.stringify(res.usuario));

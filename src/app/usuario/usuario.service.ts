@@ -16,15 +16,8 @@ export class UsuarioService {
         return this.http.post<any>(`${this.backUrl}/login`, { "usuario": usuario, "contrasena": contrasena });
     }
 
-    userSignUp(usuario: string, contrasena: string, nombres: string, apellidos: string): Observable<any> {
-        let data = {
-          "usuario": usuario,
-          "contrasena": contrasena,
-          "nombres": nombres,
-          "apellidos": apellidos
-        };
-
-        return this.http.post<any>(`${this.backUrl}/signin`, data)
+    userSignUp(data: any): Observable<any> {
+      return this.http.post<any>(`${this.backUrl}/signin`, data)
     }
 
     getApostador(idApostador: number, token: string): Observable<any> {
