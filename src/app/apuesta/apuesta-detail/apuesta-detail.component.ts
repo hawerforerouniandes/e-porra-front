@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Carrera, Competidor } from 'src/app/carrera/carrera';
+import { Usuario } from 'src/app/usuario/usuario';
 import { UsuarioService } from 'src/app/usuario/usuario.service';
 import { Apuesta } from '../apuesta';
 import { ApuestaService } from '../apuesta.service';
@@ -12,9 +14,9 @@ import { ApuestaService } from '../apuesta.service';
 })
 export class ApuestaDetailComponent implements OnInit {
 
-  @Input() carrera: string;
-  @Input() competidor: string;
-  @Input() apostador: string;
+  @Input() carrera: Carrera;
+  @Input() competidor: Competidor;
+  @Input() apostador: any;
   @Input() inputApuesta: Apuesta;
 
   userId: number;
