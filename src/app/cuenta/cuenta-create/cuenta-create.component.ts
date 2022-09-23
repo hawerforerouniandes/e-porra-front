@@ -14,7 +14,8 @@ export class CuentaCreateComponent implements OnInit {
 
   userId: number
   token: string
-  cuentaForm: FormGroup
+  cuentaForm: FormGroup;
+  usuario: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -29,12 +30,16 @@ export class CuentaCreateComponent implements OnInit {
       this.showError("No hemos podido identificarlo, por favor vuelva a iniciar sesión.")
     }
     else {
+      this.usuario = localStorage.getItem('usuario');
+      this.usuario = JSON.parse(this.usuario)
+
       this.userId = parseInt(this.router.snapshot.params.userId)
       this.token = this.router.snapshot.params.userToken
       this.cuentaForm = this.formBuilder.group({
         valor: [0, [Validators.required]],
-        numero_tarjeta: ["", [Validators.required, Validators.minLength(16), Validators.maxLength(16)]]
+        numero_tarjeta: [this.usuario.numero_tarjeta, [Validators.required, Validators.maxLength(50)]]
       })
+
     }
   }
 
