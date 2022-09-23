@@ -19,7 +19,7 @@
             {{usuario.usuario}}
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Editar usuario</a></li>
+            <li><a class="dropdown-item" (click)="goTo('perfil')" >Editar usuario</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item"(click)="goTo('cuenta')">Ver cuenta</a></li>
             <li><hr class="dropdown-divider"></li>

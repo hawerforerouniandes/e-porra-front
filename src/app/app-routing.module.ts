@@ -12,6 +12,7 @@ import { CuentaCreateComponent } from './cuenta/cuenta-create/cuenta-create.comp
 import { CuentaDetailComponent } from './cuenta/cuenta-detail/cuenta-detail.component';
 import { UsuarioLoginComponent } from './usuario/usuario-login/usuario-login.component';
 import { UsuarioSignupComponent } from './usuario/usuario-signup/usuario-signup.component';
+import { UsuarioUpdateComponent } from './usuario/usuario-update/usuario-update.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,11 @@ const routes: Routes = [
   {
     path: 'signup',
     component: UsuarioSignupComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'perfil/:userId/:userToken',
+    component: UsuarioUpdateComponent,
     pathMatch: 'full'
   },
   {

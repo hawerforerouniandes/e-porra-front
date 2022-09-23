@@ -35,6 +35,9 @@ export class HeaderComponent implements OnInit {
     else if (menu === "cuenta"){
       this.routerPath.navigate([`/cuenta/${userId}/${token}`])
     }
+    else if (menu === "perfil"){
+      this.routerPath.navigate([`/perfil/${userId}/${token}`])
+    }
   }
 
 }
