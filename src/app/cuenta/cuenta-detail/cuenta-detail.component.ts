@@ -64,6 +64,22 @@ export class CuentaDetailComponent implements OnInit {
 
   }
 
+  goRetirar() {
+    const userId = parseInt(this.router.snapshot.params.userId)
+    const token = this.router.snapshot.params.userToken
+
+    this.routerPath.navigate([`/cuenta/retirar/${userId}/${token}`])
+
+  }
+
+
+  verMovimientos() {
+    const userId = parseInt(this.router.snapshot.params.userId)
+    const token = this.router.snapshot.params.userToken
+    this.routerPath.navigate([`/cuenta/consultar/${userId}/${token}`])
+
+
+  }
   showWarning(warning: string) {
     this.toastr.warning(warning, "Error de autenticación")
   }

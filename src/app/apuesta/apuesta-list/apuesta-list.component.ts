@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Carrera, Competidor } from 'src/app/carrera/carrera';
 import { CarreraService } from 'src/app/carrera/carrera.service';
+import { Usuario } from 'src/app/usuario/usuario';
 import { UsuarioService } from 'src/app/usuario/usuario.service';
 import { Apuesta } from '../apuesta';
 import { ApuestaService } from '../apuesta.service';
@@ -29,9 +31,11 @@ export class ApuestaListComponent implements OnInit {
   mostrarApuestas: Array<Apuesta>
   apuestaSeleccionada: Apuesta
   indiceSeleccionado: number = 0
-  nombreCarrera: string
-  nombreCompetidor: string
-  nombreApostador: string
+
+  carrera: Carrera
+  competidor: Competidor
+  apostador: any
+
   usuario: any
 
 
@@ -82,9 +86,9 @@ export class ApuestaListComponent implements OnInit {
   getInfo(): void {
     this.carreraService.getCarrera(this.apuestaSeleccionada.id_carrera, this.token)
       .subscribe(carrera => {
-        this.nombreCarrera = carrera.nombre_carrera
+        this.carrera = carrera
         var competidor = carrera.competidores.filter(x => x.id == this.apuestaSeleccionada.id_competidor)[0]
-        this.nombreCompetidor = competidor.nombre_competidor
+        this.competidor = competidor
       },
         error => {
           if (error.statusText === "UNAUTHORIZED") {
@@ -100,7 +104,7 @@ export class ApuestaListComponent implements OnInit {
 
     this.usuarioService.getApostador(this.apuestaSeleccionada.id_apostador, this.token)
       .subscribe(apostador => {
-        this.nombreApostador = apostador.nombres
+        this.apostador = apostador
       },
         error => {
           if (error.statusText === "UNAUTHORIZED") {
