@@ -46,6 +46,7 @@
             <th scope="col" class="text-center">Apostador</th>
             <th scope="col" class="text-center">Competidor</th>
             <th scope="col" class="text-center">Valor apostado</th>
+            <th scope="col" class="text-center">Ganancia</th>
           </tr>
         </thead>
         <tbody>
@@ -53,6 +54,7 @@
             <td>{{ apuesta.id_apostador }}</td>
             <td class="text-center">{{ getCompetidor(apuesta.id_competidor) }}</td>
             <td class="text-center">{{apuesta.valor_apostado | number:'1.2-2'}}</td>
+            <td class="text-center">{{apuesta.ganancia | number:'1.2-2'}}</td>
           </tr>
         </tbody>
       </table>
