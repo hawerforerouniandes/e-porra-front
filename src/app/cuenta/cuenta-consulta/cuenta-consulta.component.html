@@ -17,7 +17,7 @@
                 <b><label for="nombre">Saldo: </label></b>
               </div>
               <div class="col-10">
-                <span>$ {{saldo | number }}</span>
+                $ <span style="color: red;" *ngIf="saldo < 0"> {{saldo | number }}</span> <span *ngIf="saldo >= 0"> {{saldo | number }}</span>
               </div>
             </div>
           </div>
@@ -28,6 +28,7 @@
                 <thead>
                   <tr>
                     <th class="h5">Fecha</th>
+                    <th class="h5">Tipo</th>
                     <th class="h5">Descripcion</th>
                     <th class="h5">Valor</th>
                   </tr>
@@ -35,10 +36,12 @@
                 <tbody>
                   <tr *ngFor="let cta of mostrarCuentas; index as i" (click)="onSelect(carrera, i)"
                     [ngClass]="{'selected': i === indiceSeleccionado}">
-                    <td>{{ pipe.transform(cta.fecha_registro, 'dd/MM/yyyy')}}
+                    <td>{{ pipe.transform(cta.fecha_registro, 'dd/MM/yyyy hh:mm')}}
                     <td *ngIf="cta.tipo else elseBlock">Deposito</td>
                     <ng-template #elseBlock><td>Retiro</td></ng-template>
-                    <td>{{cta.valor}}</td>
+                    <td>{{cta.descripcion}}</td>
+                    <td style="color: red;" *ngIf="cta.valor < 0">{{cta.valor}}</td>
+                    <td *ngIf="cta.valor >= 0">{{cta.valor}}</td>
 
                   </tr>
                 </tbody>

@@ -17,7 +17,7 @@
                 <b><label for="nombre">Saldo: </label></b>
               </div>
               <div class="col-10">
-                <span>$ {{saldo | number }}</span>
+                $ <span style="color: red;" *ngIf="saldo < 0"> {{saldo | number }}</span> <span *ngIf="saldo >= 0"> {{saldo | number }}</span>
               </div>
             </div>
           </div>

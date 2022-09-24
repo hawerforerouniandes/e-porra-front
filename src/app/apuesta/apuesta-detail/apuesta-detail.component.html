@@ -17,28 +17,29 @@
       <table class="table table-hover table-bordered">
         <thead class="table-light">
           <tr>
-            <th scope="col" class="text-center">Carrera</th>
+            <th scope="col" class="text-center">Tipo</th>
+            <th scope="col" class="text-center">Nombre evento</th>
             <th scope="col" class="text-center">Competidor</th>
-            <!--<th scope="col" class="text-center">Apostador</th>-->
+            <th scope="col" class="text-center">Apostador</th>
             <th scope="col" class="text-center">Valor apostado</th>
             <th scope="col" class="text-center">Estado</th>
-            <th scope="col" class="text-center">Tipo</th>
           </tr>
         </thead>
         <tbody>
           <tr>
+            <td *ngIf="carrera.marcador; else nmarcador">Marcador</td>
+            <ng-template #nmarcador>
+              <td>Carrera</td>
+            </ng-template>
             <td>{{ carrera.nombre_carrera }}</td>
             <td>{{ competidor.nombre_competidor }}</td>
-            <!--<td>{{ apostador.nombres }}</td>-->
+            <td>{{ apostador.nombres }}</td>
             <td>{{ inputApuesta?.valor_apostado | number : "1.2-2" }}</td>
             <td *ngIf="carrera.abierta; else cerrada">Abierta</td>
             <ng-template #cerrada>
               <td>Cerrada</td>
             </ng-template>
-            <td *ngIf="carrera.marcador; else nmarcador">Marcador</td>
-            <ng-template #nmarcador>
-              <td>Carrera</td>
-            </ng-template>
+
           </tr>
         </tbody>
       </table>
