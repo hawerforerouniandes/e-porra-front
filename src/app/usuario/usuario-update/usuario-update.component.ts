@@ -20,6 +20,7 @@ export class UsuarioUpdateComponent implements OnInit {
   userId: number;
   usuario: any;
   saldo: any;
+  is_change: boolean = false;
 
   constructor(
     private usuarioService: UsuarioService,
@@ -42,17 +43,36 @@ export class UsuarioUpdateComponent implements OnInit {
 
       this.getApostador();
 
+      this.isChangePassword(this.is_change);
     }
     
-    this.usuarioForm = this.formBuilder.group({
-      usuario: [this.usuario.usuario, []],
-      numero_tarjeta: [this.usuario.numero_tarjeta, [Validators.required, Validators.maxLength(50)]],
-      email: [this.usuario.email, [Validators.required, Validators.maxLength(50), Validators.email]],
-      nombres: [this.usuario.nombres, [Validators.required, Validators.maxLength(100)]],
-      apellidos: [this.usuario.apellidos, [Validators.required, Validators.maxLength(100)]],
-      contrasena: ["", [Validators.required, Validators.maxLength(50), Validators.minLength(4)]],
-      confirmPassword: ["", [Validators.required, Validators.maxLength(50), Validators.minLength(4)]]
-    })
+    
+  }
+
+  isChangePassword( is_change: boolean ) {
+    this.is_change = is_change;
+    if ( !is_change) {
+      
+      this.usuarioForm = this.formBuilder.group({
+        is_change_pass: [is_change, []],
+        usuario: [{"value": this.usuario.usuario, disabled: true}, []],
+        numero_tarjeta: [this.usuario.numero_tarjeta, [Validators.required, Validators.maxLength(50)]],
+        email: [this.usuario.email, [Validators.required, Validators.maxLength(50), Validators.email]],
+        nombres: [this.usuario.nombres, [Validators.required, Validators.maxLength(100)]],
+        apellidos: [this.usuario.apellidos, [Validators.required, Validators.maxLength(100)]],
+      })
+    } else {
+      this.usuarioForm = this.formBuilder.group({
+        is_change_pass: [is_change, []],
+        usuario: [{"value": this.usuario.usuario, disabled: true}, []],
+        numero_tarjeta: [this.usuario.numero_tarjeta, [Validators.required, Validators.maxLength(50)]],
+        email: [this.usuario.email, [Validators.required, Validators.maxLength(50), Validators.email]],
+        nombres: [this.usuario.nombres, [Validators.required, Validators.maxLength(100)]],
+        apellidos: [this.usuario.apellidos, [Validators.required, Validators.maxLength(100)]],
+        contrasena: ["", [Validators.required, Validators.maxLength(50), Validators.minLength(4)]],
+        confirmPassword: ["", [Validators.required, Validators.maxLength(50), Validators.minLength(4)]]
+      })
+    }
   }
 
   getApostador() {
@@ -80,7 +100,7 @@ export class UsuarioUpdateComponent implements OnInit {
         this.token
       )
       .subscribe(res => {
-        localStorage.setItem('usuario', JSON.stringify(res.usuario));
+        localStorage.setItem('usuario', JSON.stringify(res));
         //const decodedToken = this.helper.decodeToken(res.token);
 
         this.showSuccess()

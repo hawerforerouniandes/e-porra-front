@@ -23,6 +23,8 @@ export class ApuestaCreateComponent implements OnInit {
   carreras: Array<Carrera>
   competidores: Array<Competidor>
   apostadores: Array<Usuario>
+  usuario: any;
+  es_apostador: boolean;
 
   constructor(
     private apuestaService: ApuestaService,
@@ -40,11 +42,16 @@ export class ApuestaCreateComponent implements OnInit {
     }
     else {
       this.userId = parseInt(this.router.snapshot.params.userId)
+      this.usuario = localStorage.getItem('usuario');
+      this.usuario = JSON.parse(this.usuario);
+
+      let valorApostador = this.usuario.es_apostador ? this.userId : "";
+      
       this.token = this.router.snapshot.params.userToken
       this.apuestaForm = this.formBuilder.group({
         id_carrera: ["", [Validators.required]],
         id_competidor: ["", [Validators.required]],
-        id_apostador: ["", [Validators.required]],
+        id_apostador: [{"value": valorApostador, disabled: this.usuario.es_apostador}, [Validators.required]],
         valor_apostado: [0, [Validators.required]]
       })
       this.getCarreras()
