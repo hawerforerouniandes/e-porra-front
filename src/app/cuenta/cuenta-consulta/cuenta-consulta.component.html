@@ -17,7 +17,7 @@
                 <b><label for="nombre">Saldo: </label></b>
               </div>
               <div class="col-10">
-                $ <span style="color: red;" *ngIf="saldo < 0"> {{saldo | number }}</span> <span *ngIf="saldo >= 0"> {{saldo | number }}</span>
+                $ <span style="color: red;" *ngIf="saldo < 0"> {{saldo | number : '.2-2' }}</span> <span *ngIf="saldo >= 0"> {{saldo | number : '.2-2' }}</span>
               </div>
             </div>
           </div>
@@ -40,8 +40,8 @@
                     <td *ngIf="cta.tipo else elseBlock">Deposito</td>
                     <ng-template #elseBlock><td>Retiro</td></ng-template>
                     <td>{{cta.descripcion}}</td>
-                    <td style="color: red;" *ngIf="cta.valor < 0">{{cta.valor}}</td>
-                    <td *ngIf="cta.valor >= 0">{{cta.valor}}</td>
+                    <td style="color: red;" *ngIf="cta.valor < 0">{{cta.valor | number : '.2-2' }}</td>
+                    <td *ngIf="cta.valor >= 0">{{cta.valor | number : '.2-2' }}</td>
 
                   </tr>
                 </tbody>

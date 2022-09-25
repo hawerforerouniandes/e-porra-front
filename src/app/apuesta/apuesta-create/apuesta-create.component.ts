@@ -46,7 +46,7 @@ export class ApuestaCreateComponent implements OnInit {
       this.usuario = JSON.parse(this.usuario);
 
       let valorApostador = this.usuario.es_apostador ? this.userId : "";
-      
+
       this.token = this.router.snapshot.params.userToken
       this.apuestaForm = this.formBuilder.group({
         id_carrera: ["", [Validators.required]],
@@ -67,7 +67,7 @@ export class ApuestaCreateComponent implements OnInit {
   }
 
   getCarreras(): void {
-    this.carreraService.getCarreras(this.userId, this.token)
+    this.carreraService.getCarrerasAll(this.token)
       .subscribe(carreras => {
         this.carreras = carreras
       },
@@ -106,6 +106,9 @@ export class ApuestaCreateComponent implements OnInit {
 
 
   createApuesta(newApuesta: Apuesta) {
+    if(newApuesta.id_apostador == undefined){
+       newApuesta.id_apostador = this.userId
+    }
     this.apuestaService.crearApuesta(newApuesta, this.token)
       .subscribe(apuesta => {
         this.showSuccess(apuesta)
@@ -120,7 +123,12 @@ export class ApuestaCreateComponent implements OnInit {
             this.showError("No hemos podido identificarlo, por favor vuelva a iniciar sesión.")
           }
           else {
-            this.showError("Ha ocurrido un error. " + error.message)
+            if (error.error.message != undefined || error.error.message != null)
+            {
+              this.showError(`Ha ocurrido un error: ${error.error.message}`)
+            }else {
+              this.showError(`Ha ocurrido un error: ${error.message}`)
+            }
           }
         })
   }

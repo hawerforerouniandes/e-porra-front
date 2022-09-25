@@ -20,6 +20,13 @@ export class CarreraService {
     return this.http.get<Carrera[]>(`${this.backUrl}/usuario/${usuario}/carreras`, { headers: headers })
   }
 
+  getCarrerasAll(token: string): Observable<Carrera[]> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return this.http.get<Carrera[]>(`${this.backUrl}/carreras`, { headers: headers })
+  }
+
   crearCarrera(idUsuario: number, token: string, carrera: Carrera): Observable<Carrera> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`

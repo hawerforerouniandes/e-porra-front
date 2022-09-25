@@ -59,7 +59,7 @@ export class ApuestaEditComponent implements OnInit {
   }
 
   getCarreras(id_carrera: number): void {
-    this.carreraService.getCarreras(this.userId, this.token)
+    this.carreraService.getCarrerasAll(this.token)
       .subscribe(carreras => {
         this.carreras = carreras
         this.onCarreraSelect(id_carrera)

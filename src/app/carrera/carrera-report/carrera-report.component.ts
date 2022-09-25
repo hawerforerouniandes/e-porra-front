@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from "ngx-toastr";
+import { UsuarioService } from 'src/app/usuario/usuario.service';
 import { Apuesta, Carrera, Competidor } from '../carrera';
 import { CarreraService } from '../carrera.service';
 
@@ -19,6 +20,7 @@ export class CarreraReportComponent implements OnInit {
 
   constructor(
     private carreraService: CarreraService,
+    private usuarioService: UsuarioService,
     private router: ActivatedRoute,
     private toastr: ToastrService,
     private routerPath: Router) { }
@@ -42,7 +44,12 @@ export class CarreraReportComponent implements OnInit {
 
           if (reporteCarrera.carrera.apuestas.length > 0) {
             for (let apuesta of reporteCarrera.carrera.apuestas) {
-              this.carrera.apuestas.push(new Apuesta(apuesta.id, apuesta.valor_apostado, apuesta.ganancia, apuesta.nombre_apostador, apuesta.id_competidor, apuesta.id_carrera));
+             var nombre_apostador = "";
+
+             this.usuarioService.getApostador(apuesta.id_apostador, this.token).subscribe(apostador=> {
+              nombre_apostador = apostador.nombres
+              this.carrera.apuestas.push(new Apuesta(apuesta.id, apuesta.valor_apostado, apuesta.ganancia, nombre_apostador, apuesta.id_competidor, apuesta.id_carrera));
+             })
             }
           }
 
