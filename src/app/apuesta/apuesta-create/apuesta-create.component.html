@@ -14,12 +14,12 @@
           <div class="form-group my-2">
             <div class="row">
               <div class="col-2 text-start">
-                <label for="id_carrera">Carrera</label>
+                <label for="id_carrera">Evento</label>
               </div>
               <div class="col-10">
                 <select formControlName="id_carrera" class="form-control" (change)="
                   onCarreraSelect($event.target.value)">
-                  <option value="">Selecciona una carrera...</option>
+                  <option value="">Selecciona un evento...</option>
                   <option *ngFor="let item of carreras" value="{{ item.id }}">
                     {{ item.nombre_carrera }}
                   </option>
@@ -30,7 +30,7 @@
               <div class="col-8">
                 <div class="alert alert-danger my-3"
                   *ngIf="apuestaForm.get('id_carrera')?.hasError('required') && apuestaForm.get('id_carrera')?.touched">
-                  Debe seleccionar la carrera
+                  Debe seleccionar un evento
                 </div>
               </div>
             </div>
