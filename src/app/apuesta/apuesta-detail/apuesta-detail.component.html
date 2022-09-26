@@ -22,6 +22,7 @@
             <th scope="col" class="text-center">Competidor</th>
             <th scope="col" class="text-center">Apostador</th>
             <th scope="col" class="text-center">Valor apostado</th>
+            <th scope="col" class="text-center">Ganancia</th>
             <th scope="col" class="text-center">Estado</th>
           </tr>
         </thead>
@@ -35,6 +36,7 @@
             <td>{{ competidor.nombre_competidor }}</td>
             <td>{{ apostador.nombres }}</td>
             <td>{{ inputApuesta?.valor_apostado | number : "1.2-2" }}</td>
+            <td>{{ inputApuesta?.ganancia | number : "1.2-2" }}</td>
             <td *ngIf="carrera.abierta; else cerrada">Abierta</td>
             <ng-template #cerrada>
               <td>Cerrada</td>
