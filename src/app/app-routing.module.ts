@@ -8,8 +8,13 @@ import { CarreraEditComponent } from './carrera/carrera-edit/carrera-edit.compon
 import { CarreraFinishComponent } from './carrera/carrera-finish/carrera-finish.component';
 import { CarreraListComponent } from './carrera/carrera-list/carrera-list.component';
 import { CarreraReportComponent } from './carrera/carrera-report/carrera-report.component';
+import { CuentaCreateComponent } from './cuenta/cuenta-create/cuenta-create.component';
+import { CuentaDeleteComponent } from './cuenta/cuenta-delete/cuenta-delete.component';
+import { CuentaDetailComponent } from './cuenta/cuenta-detail/cuenta-detail.component';
 import { UsuarioLoginComponent } from './usuario/usuario-login/usuario-login.component';
 import { UsuarioSignupComponent } from './usuario/usuario-signup/usuario-signup.component';
+import { UsuarioUpdateComponent } from './usuario/usuario-update/usuario-update.component';
+import { CuentaConsultaComponent } from './cuenta/cuenta-consulta/cuenta-consulta.component';
 
 const routes: Routes = [
   {
@@ -25,6 +30,11 @@ const routes: Routes = [
   {
     path: 'signup',
     component: UsuarioSignupComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'perfil/:userId/:userToken',
+    component: UsuarioUpdateComponent,
     pathMatch: 'full'
   },
   {
@@ -58,7 +68,23 @@ const routes: Routes = [
   {
     path: 'apuestas/editar/:apuestaId/:userId/:userToken',
     component: ApuestaEditComponent
-  }
+  },
+  {
+    path: 'cuenta/:userId/:userToken',
+    component: CuentaDetailComponent
+  },
+  {
+    path: 'cuenta/crear/:userId/:userToken',
+    component: CuentaCreateComponent
+  },
+  {
+    path: 'cuenta/consultar/:userId/:userToken',
+    component: CuentaConsultaComponent
+  },
+  {
+    path: 'cuenta/retirar/:userId/:userToken',
+    component: CuentaDeleteComponent
+  },
 ];
 
 @NgModule({

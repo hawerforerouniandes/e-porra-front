@@ -1,13 +1,14 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class UsuarioService {
 
-    private backUrl: string = "https://e-porra-backend-grupo38.herokuapp.com"
+    private backUrl: string = environment.baseUrl
 
     constructor(private http: HttpClient) { }
 
@@ -15,7 +16,29 @@ export class UsuarioService {
         return this.http.post<any>(`${this.backUrl}/login`, { "usuario": usuario, "contrasena": contrasena });
     }
 
-    userSignUp(usuario: string, contrasena: string): Observable<any> {
-        return this.http.post<any>(`${this.backUrl}/signin`, { "usuario": usuario, "contrasena": contrasena })
+    userSignUp(data: any): Observable<any> {
+      return this.http.post<any>(`${this.backUrl}/signin`, data)
     }
+
+    userUpdate(data: any, id: number, token: string): Observable<any> {
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      })
+      return this.http.put<any>(`${this.backUrl}/apostador/${id}`, data, { headers: headers })
+    }
+
+    getApostador(idApostador: number, token: string): Observable<any> {
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      })
+      return this.http.get<any>(`${this.backUrl}/apostador/${idApostador}`, { headers: headers })
+    }
+
+    getApostadores(token: string): Observable<any> {
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      })
+      return this.http.get<any>(`${this.backUrl}/apostadores`, { headers: headers })
+    }
+
 }

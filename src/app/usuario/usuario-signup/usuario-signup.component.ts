@@ -27,20 +27,38 @@ export class UsuarioSignupComponent implements OnInit {
   ngOnInit() {
     this.usuarioForm = this.formBuilder.group({
       usuario: ["", [Validators.required, Validators.maxLength(50)]],
-      password: ["", [Validators.required, Validators.maxLength(50), Validators.minLength(4)]],
+      numero_tarjeta: ["", [Validators.required, Validators.maxLength(50)]],
+      email: ["", [Validators.required, Validators.maxLength(50), Validators.email]],
+      nombres: ["", [Validators.required, Validators.maxLength(100)]],
+      apellidos: ["", [Validators.required, Validators.maxLength(100)]],
+      contrasena: ["", [Validators.required, Validators.maxLength(50), Validators.minLength(4)]],
       confirmPassword: ["", [Validators.required, Validators.maxLength(50), Validators.minLength(4)]]
     })
   }
 
   registrarUsuario() {
-    this.usuarioService.userSignUp(this.usuarioForm.get('usuario')?.value, this.usuarioForm.get('password')?.value)
+    this.usuarioService.userSignUp(
+        this.usuarioForm.value
+      )
       .subscribe(res => {
+        localStorage.setItem('usuario', JSON.stringify(res.usuario));
         const decodedToken = this.helper.decodeToken(res.token);
-        this.router.navigate([`/carreras/${decodedToken.sub}/${res.token}`])
+        if(res.usuario.es_apostador){
+          this.router.navigate([`/apuestas/${decodedToken.sub}/${res.token}`])
+        }
+        else{
+          this.router.navigate([`/carreras/${decodedToken.sub}/${res.token}`])
+        }
+
         this.showSuccess()
       },
         error => {
-          this.showError(`Ha ocurrido un error: ${error.message}`)
+          if (error.error.message != undefined || error.error.message != null)
+          {
+            this.showError(`Ha ocurrido un error: ${error.error.message}`)
+          }else {
+            this.showError(`Ha ocurrido un error: ${error.message}`)
+          }
         })
   }
 

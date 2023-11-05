@@ -1,0 +1,33 @@
+<app-header></app-header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-10">
+      <div class="card mx-3 my-5">
+        <div class="card">
+          <div class="card-header">
+            <div class="row">
+              <div class="col-12 text-center">
+                <p class="mb-2 fs-3 fw-bold">Cuenta</p>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="row form-group my-2">
+              <div class="col-2 text-start">
+                <b><label for="nombre">Saldo: </label></b>
+              </div>
+              <div class="col-10">
+                $ <span style="color: red;" *ngIf="saldo < 0"> {{saldo | number }}</span> <span *ngIf="saldo >= 0"> {{saldo | number }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button type="button" class="btn btn-primary" (click)="goDepositar()">Depositar</button>&nbsp;
+            <button type="button" class="btn btn-primary" (click)="goRetirar()">Retirar</button>&nbsp;
+            <button type="button" class="btn btn-primary" (click)="verMovimientos()">Movimientos</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

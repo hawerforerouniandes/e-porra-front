@@ -2,13 +2,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Apuesta } from './apuesta';
+import { environment } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApuestaService {
 
-  private backUrl: string = "https://e-porra-backend-grupo38.herokuapp.com"
+  private backUrl: string = environment.baseUrl
 
   constructor(private http: HttpClient) { }
 
@@ -17,6 +19,13 @@ export class ApuestaService {
       'Authorization': `Bearer ${token}`
     })
     return this.http.get<Apuesta[]>(`${this.backUrl}/apuestas`, { headers: headers })
+  }
+
+  getApuestasApostador(token: string, apostadorId: number): Observable<Apuesta[]> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return this.http.get<Apuesta[]>(`${this.backUrl}/apuestas/${apostadorId}`, { headers: headers })
   }
 
   crearApuesta(apuesta: Apuesta, token: string): Observable<Apuesta> {

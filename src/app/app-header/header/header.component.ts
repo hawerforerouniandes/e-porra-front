@@ -13,7 +13,12 @@ export class HeaderComponent implements OnInit {
     private router: ActivatedRoute
   ) { }
 
-  ngOnInit(): void { }
+  usuario: any;
+
+  ngOnInit(): void {
+    this.usuario = localStorage.getItem('usuario')
+    this.usuario = JSON.parse(this.usuario)
+   }
 
   goTo(menu: string) {
     const userId = parseInt(this.router.snapshot.params.userId)
@@ -24,8 +29,14 @@ export class HeaderComponent implements OnInit {
     else if (menu === "carrera") {
       this.routerPath.navigate([`/carreras/${userId}/${token}`])
     }
-    else {
+    else if (menu === "apuesta"){
       this.routerPath.navigate([`/apuestas/${userId}/${token}`])
+    }
+    else if (menu === "cuenta"){
+      this.routerPath.navigate([`/cuenta/${userId}/${token}`])
+    }
+    else if (menu === "perfil"){
+      this.routerPath.navigate([`/perfil/${userId}/${token}`])
     }
   }
 

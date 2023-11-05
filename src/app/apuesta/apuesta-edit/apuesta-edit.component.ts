@@ -43,7 +43,7 @@ export class ApuestaEditComponent implements OnInit {
           this.apuestaForm = this.formBuilder.group({
             id_carrera: [apuesta.id_carrera, [Validators.required]],
             id_competidor: [apuesta.id_competidor, [Validators.required]],
-            nombre_apostador: [apuesta.nombre_apostador, [Validators.required, Validators.minLength(1), Validators.maxLength(128)]],
+            id_apostador: [apuesta.id_apostador, [Validators.required]],
             valor_apostado: [Number(apuesta.valor_apostado).toFixed(2), [Validators.required]]
           })
           this.getCarreras(apuesta.id_carrera)
@@ -59,7 +59,7 @@ export class ApuestaEditComponent implements OnInit {
   }
 
   getCarreras(id_carrera: number): void {
-    this.carreraService.getCarreras(this.userId, this.token)
+    this.carreraService.getCarrerasAll(this.token)
       .subscribe(carreras => {
         this.carreras = carreras
         this.onCarreraSelect(id_carrera)

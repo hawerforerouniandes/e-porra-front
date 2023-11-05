@@ -2,13 +2,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Carrera, Competidor } from './carrera';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CarreraService {
 
-  private backUrl: string = "https://e-porra-backend-grupo38.herokuapp.com"
+  private backUrl: string = environment.baseUrl
 
   constructor(private http: HttpClient) { }
 
@@ -17,6 +18,13 @@ export class CarreraService {
       'Authorization': `Bearer ${token}`
     })
     return this.http.get<Carrera[]>(`${this.backUrl}/usuario/${usuario}/carreras`, { headers: headers })
+  }
+
+  getCarrerasAll(token: string): Observable<Carrera[]> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return this.http.get<Carrera[]>(`${this.backUrl}/carreras`, { headers: headers })
   }
 
   crearCarrera(idUsuario: number, token: string, carrera: Carrera): Observable<Carrera> {
